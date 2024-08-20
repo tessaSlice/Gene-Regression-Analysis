@@ -1,2 +1,16 @@
-# Gene Regression 2022
- GIDAS Project
+# Project Abstract
+
+Below is the project abstract: 
+
+## Partial Least Squares Regression Model for Reducing Cost in High Volume NGS Alzheimer's Studies
+*Amy Lee, Noah Black, Venkatkrishnan Iyer*
+
+**Introduction:** Alzheimer’s Disease (AD) is one of the most prevalent neurodegenerative diseases in the world. Still, its impact is set to four-fold by 2050. The disease is characterized by neurodegeneration and loss of memory and comprehension. Studies have found a deep link between AD and genetics. Having a first degree relative with AD increases one's chances of diagnosis by 30%. One common research technique used to study AD is RNA-sequencing (RNA-seq), which quantifies RNA in patients’ transcriptomes. Considering RNA-seq costs around $200 per sample, large studies can cost hundreds of thousands of dollars in sequencing alone. Utilizing a partial least squares (PLS) model to predict 20 mRNA expression values based on an 80 gene expression value input, we can reduce sequencing costs by 20% per sample in a targeted RNA-seq study.
+
+**Methods:** By utilizing GSE125583 from NCBI’s GEO database, we downloaded AD and control sample expression count files from the fusiform gyrus brain region. We used DESeq2 to normalize the count files. Since we had access to a relatively small sample size, we focused on 100 genes chosen by top absolute logFC in GSE132651, which explores atherosclerosis. We chose to use GSE132651 to decide our input/output genes because cardiovascular disease is associated with AD, possibly through atherosclerosis. Co-dysregulated genes may display association with each other, possibly increasing model capabilities.
+
+After the genes were selected, we constructed a boxplot with Python and Matplotlib to  investigate potential outliers. For ML, we employed a 70/30 sample split, meaning that 70% of our samples were used to train our model, while 30% were used to test model efficacy. For the gene split, we choose to use 80 genes to regress 20, representing a 20% cost reduction. After comparing various ML methods with JMP, we chose to implement PLS regression with 23 components and applied cross-validation via the Scikit Learn library. PLS was chosen as it is a more effective method to handle the correlations among genes compared to random forests and other predictive models. R2 and mean average percent error were used to evaluate model performance. 
+
+**Results:** GSE125583 consists of 219 AD samples and 70 control samples. After normalizing the dataset, the boxplot showed a consistent signaling value, indicating there were no outliers. The PLS performed with a mean absolute percent error of 3.91%. In addition, the R2 value (.732) indicates our model was able to explain roughly 73% of the variation in the 20 regressed genes. This indicates an opportunity to improve the model fit. Future work includes improving gene selection and sample data selection.
+
+**Conclusion:** This experiment presents a solution for more cost effective genomic studies. We successfully developed a disease-specific model that can reasonably regress gene expression values. Next steps could include increasing the ratio of predicted genes to input genes in order to maximize cost benefit, using a more balanced dataset to reduce possible bias in the model, or combining multiple datasets and a new generalized model architecture to account for batch effects.
